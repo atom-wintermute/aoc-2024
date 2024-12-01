@@ -36,6 +36,30 @@ struct Day00: AdventDay {
 
     // Replace this with your solution for the second part of the day's challenge.
     func part2() -> Any {
-        return false
+        var firstList = [Int]()
+        var secondList = [Int]()
+
+        for entity in entities {
+            firstList.append(entity[0])
+            secondList.append(entity[1])
+        }
+
+        var dict = [Int: Int]()
+        for elem in secondList {
+            if dict[elem] != nil {
+                dict[elem]! += 1
+            } else {
+                dict[elem] = 1
+            }
+        }
+
+        var sum = 0
+        for elem in firstList {
+            if dict[elem] != nil {
+                sum += elem * dict[elem]!
+            }
+        }
+
+        return sum
     }
 }
