@@ -18,47 +18,7 @@ struct Day01: AdventDay {
 		var safeReports = 0
 
 		for entity in entities {
-			var isAsc = true
-			var isSafe = true
-
-			var prev = 0
-
-			for (index, num) in entity.enumerated() {
-				if index == 0 {
-					prev = num
-					continue
-				} else {
-					if index == 1 {
-						if num < prev {
-							isAsc = false
-						}
-					}
-
-					if isAsc {
-						if num < prev {
-							isSafe = false
-							break
-						}
-						if num > prev + 3 || num == prev {
-							isSafe = false
-							break
-						}
-					} else {
-						if num > prev {
-							isSafe = false
-							break
-						}
-						if prev - 3 > num || num == prev {
-							isSafe = false
-							break
-						}
-					}
-
-					prev = num
-				}
-			}
-
-			if isSafe {
+			if chechEntity(entity: entity) {
 				safeReports += 1
 			}
 		}
@@ -68,6 +28,62 @@ struct Day01: AdventDay {
 
     // Replace this with your solution for the second part of the day's challenge.
     func part2() -> Any {
-        return false
+		var safeReports = 0
+
+		for entity in entities {
+			for (index, _) in entity.enumerated() {
+				var updatedEntity = entity
+				updatedEntity.remove(at: index)
+				if chechEntity(entity: updatedEntity) {
+					safeReports += 1
+					break
+				}
+			}
+		}
+
+		return safeReports
     }
+
+	private func chechEntity(entity: [Int]) -> Bool {
+		var isAsc = true
+		var isSafe = true
+
+		var prev = 0
+
+		for (index, num) in entity.enumerated() {
+			if index == 0 {
+				prev = num
+				continue
+			} else {
+				if index == 1 {
+					if num < prev {
+						isAsc = false
+					}
+				}
+
+				if isAsc {
+					if num < prev {
+						isSafe = false
+						break
+					}
+					if num > prev + 3 || num == prev {
+						isSafe = false
+						break
+					}
+				} else {
+					if num > prev {
+						isSafe = false
+						break
+					}
+					if prev - 3 > num || num == prev {
+						isSafe = false
+						break
+					}
+				}
+
+				prev = num
+			}
+		}
+		return isSafe
+	}
 }
