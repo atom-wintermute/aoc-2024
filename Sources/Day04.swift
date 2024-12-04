@@ -68,12 +68,6 @@ struct Day04: AdventDay {
 		return sum
 	}
 
-	// Replace this with your solution for the second part of the day's challenge.
-	func part2() -> Any {
-		return false
-	}
-
-
 	// MARK: - Private
 
 	private func checkRight(x: Int, y: Int) -> Bool {
@@ -199,6 +193,106 @@ struct Day04: AdventDay {
 			return false
 		}
 		if entities[y+3][x-3] != "S" {
+			return false
+		}
+		return true
+	}
+
+	// Replace this with your solution for the second part of the day's challenge.
+	func part2() -> Any {
+		var sum = 0
+		for y in 1...entities.count-2 {
+			for x in 1...entities[y].count-2 {
+				if checkFirst(x: x, y: y) {
+					sum += 1
+				}
+				if checkSecond(x: x, y: y) {
+					sum += 1
+				}
+				if checkThird(x: x, y: y) {
+					sum += 1
+				}
+				if checkFourth(x: x, y: y) {
+					sum += 1
+				}
+			}
+		}
+		return sum
+	}
+
+	// MARK: - Private
+
+	private func checkFirst(x: Int, y: Int) -> Bool {
+		if entities[y][x] != "A" {
+			return false
+		}
+		if entities[y-1][x-1] != "M" {
+			return false
+		}
+		if entities[y-1][x+1] != "S" {
+			return false
+		}
+		if entities[y+1][x-1] != "M" {
+			return false
+		}
+		if entities[y+1][x+1] != "S" {
+			return false
+		}
+		return true
+	}
+
+	private func checkSecond(x: Int, y: Int) -> Bool {
+		if entities[y][x] != "A" {
+			return false
+		}
+		if entities[y-1][x-1] != "M" {
+			return false
+		}
+		if entities[y-1][x+1] != "M" {
+			return false
+		}
+		if entities[y+1][x-1] != "S" {
+			return false
+		}
+		if entities[y+1][x+1] != "S" {
+			return false
+		}
+		return true
+	}
+
+	private func checkThird(x: Int, y: Int) -> Bool {
+		if entities[y][x] != "A" {
+			return false
+		}
+		if entities[y-1][x-1] != "S" {
+			return false
+		}
+		if entities[y-1][x+1] != "S" {
+			return false
+		}
+		if entities[y+1][x-1] != "M" {
+			return false
+		}
+		if entities[y+1][x+1] != "M" {
+			return false
+		}
+		return true
+	}
+
+	private func checkFourth(x: Int, y: Int) -> Bool {
+		if entities[y][x] != "A" {
+			return false
+		}
+		if entities[y-1][x-1] != "S" {
+			return false
+		}
+		if entities[y-1][x+1] != "M" {
+			return false
+		}
+		if entities[y+1][x-1] != "S" {
+			return false
+		}
+		if entities[y+1][x+1] != "M" {
 			return false
 		}
 		return true

@@ -25,7 +25,7 @@ MXMXAXMASX
   }
 
   @Test func testPart2() async throws {
-	let challenge = Day03(data: testData)
-	#expect(String(describing: challenge.part2()) == "48")
+	let challenge = Day04(data: testData)
+	#expect(String(describing: challenge.part2()) == "9")
   }
 }
