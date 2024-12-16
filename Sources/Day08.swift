@@ -112,7 +112,151 @@ struct Day08: AdventDay {
 
 	// Replace this with your solution for the second part of the day's challenge.
 	func part2() -> Any {
-		return false
+		var antennas = [Character: [Position]]()
+		for (y, row) in rows.enumerated() {
+			for (x, symbol) in row.enumerated() {
+				if symbol != "." {
+					if antennas[symbol] == nil {
+						antennas[symbol] = [Position(x: x, y: y)]
+					} else {
+						antennas[symbol]!.append(Position(x: x, y: y))
+					}
+				}
+			}
+		}
+
+		var antinodes = Set<Position>()
+		for (_, positions) in antennas {
+			if positions.count > 1 {
+
+				for (i, position) in positions.enumerated() {
+					antinodes.insert(position)
+					for j in i + 1 ..< positions.count {
+
+						let position2 = positions[j]
+						let difX = abs(position.x - position2.x)
+						let difY = abs(position.y - position2.y)
+
+						if position.x > position2.x {
+							if position.y > position2.y {
+
+								var isPositionValid = true
+								var startingPosition = position
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x + difX, y: startingPosition.y + difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+
+								isPositionValid = true
+								startingPosition = position2
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x - difX, y: startingPosition.y - difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+							} else {
+
+								var isPositionValid = true
+								var startingPosition = position
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x + difX, y: startingPosition.y - difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+
+								isPositionValid = true
+								startingPosition = position2
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x - difX, y: startingPosition.y + difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+							}
+						} else {
+							if position.y > position2.y {
+
+								var isPositionValid = true
+								var startingPosition = position
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x - difX, y: startingPosition.y + difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+
+								isPositionValid = true
+								startingPosition = position2
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x + difX, y: startingPosition.y - difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+							} else {
+
+								var isPositionValid = true
+								var startingPosition = position
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x - difX, y: startingPosition.y - difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+
+								isPositionValid = true
+								startingPosition = position2
+								while isPositionValid {
+									let antinodePosition = Position(x: startingPosition.x + difX, y: startingPosition.y + difY)
+
+									if validateAntinode(antinodePosition) {
+										antinodes.insert(antinodePosition)
+										startingPosition = antinodePosition
+									} else {
+										isPositionValid = false
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return antinodes.count
 	}
 
 }
