@@ -86,7 +86,6 @@ struct Day09: AdventDay {
 			isFile.toggle()
 		}
 
-		var isLastFile = true
 		for i in stride(from: spaces.count - 1, to: 0, by: -1) {
 			if !spaces[i].isFile {
 				continue
