@@ -103,7 +103,6 @@ struct Day11: AdventDay {
 
         var sum: Int64 = 0
         for stone in stones {
-            print("calc stone \(stone)")
             let result = getStones(input: stone, depth: iterationCount, cache: &cache)
             sum += result
         }
